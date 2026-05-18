@@ -22,9 +22,6 @@ ENV/
 media/
 /media
 
-# Certificados locais
-certs/
-
 # macOS
 .DS_Store
 

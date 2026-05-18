@@ -18,7 +18,7 @@ O sistema simula uma loja online de veículos seminovos com catálogo de carros,
 | **Acessórios** | Listagem de produtos e serviços automotivos |
 | **Lista de Interesse** | Carrinho persistente com envio direto via WhatsApp |
 | **Histórico** | Registro permanente de veículos que o usuário demonstrou interesse |
-| **Autenticação** | Cadastro, login, logout e troca de senha — todos em HTTPS |
+| **Autenticação** | Cadastro, login e troca de senha em HTTPS; logout em mesmo esquema do navbar |
 | **Perfil** | Dados pessoais do cliente (CPF, telefone, endereço) — HTTPS obrigatório |
 | **HTTPS Seletivo** | Certificado digital próprio (OpenSSL CA + servidor) com redirecionamento automático |
 | **Admin** | Painel Django com gestão de veículos, fotos, acessórios e usuários |
@@ -60,7 +60,7 @@ home/         → landing page, perfil, histórico, avaliações, decorators HTT
 **1. Clone o repositório:**
 ```bash
 git clone https://github.com/AndreLeite121/AutoMotors.git
-cd automotors
+cd TPIII-SASI
 ```
 
 **2. Crie e ative um ambiente virtual:**
@@ -84,20 +84,41 @@ pip install -r requeriments.txt
 python3 manage.py migrate
 ```
 
-**5. (Opcional) Popule o banco com dados de exemplo:**
+**5. Crie um superusuário para acessar `/admin/`:**
 ```bash
-python3 manage.py seed_garagem
+python3 manage.py createsuperuser
 ```
 
-**6. Gere os certificados SSL** (necessário para HTTPS):
+**6. (Opcional) Popule o banco com dados de exemplo:**
 ```bash
+# 9 veículos + 3 acessórios (baixa fotos do Unsplash)
+python3 manage.py seed_garagem
+
+# Galeria de fotos múltiplas a partir de uma pasta local (opcional)
+python3 manage.py import_fotos "/caminho/para/Carros"
+```
+
+**7. Certificados SSL:**
+
+Os certificados já estão versionados em `certs/` (CA AutoMotors + cert do
+servidor) para facilitar a avaliação acadêmica e a auditoria do TPIV.
+Você pode usá-los direto ou regenerar:
+
+```bash
+# Regenerar do zero (opcional)
 cd certs/
 bash gerar-certificados.sh   # macOS / Linux
 cd ..
 ```
 > Veja o passo a passo completo em [`docs/tutorial-openssl.md`](docs/tutorial-openssl.md).
+> Para o navegador confiar no certificado sem aviso, instale o `certs/ca.crt`
+> no Keychain — instruções em [`docs/passos-finais.md`](docs/passos-finais.md).
 
-**7. Inicie os dois servidores em paralelo:**
+> ⚠️ **Em produção real**, chaves privadas (`ca.key`, `server.key`) **nunca**
+> devem ir para o repositório. Aqui são cert acadêmicos de localhost,
+> descartáveis após a entrega.
+
+**8. Inicie os dois servidores em paralelo:**
 
 ```bash
 # macOS / Linux
@@ -119,4 +140,7 @@ python manage.py runsslserver --certificate certs/server.crt --key certs/server.
 
 ## Documentação
 
-- [`docs/tutorial-openssl.md`](docs/tutorial-openssl.md) — geração e instalação dos certificados digitais
+- [`docs/tutorial-openssl.md`](docs/tutorial-openssl.md) — geração e uso dos certificados com OpenSSL (entregue via Classroom)
+- [`docs/ssl-automotors.md`](docs/ssl-automotors.md) — arquitetura SSL do projeto (decorators, settings, fluxo HTTP↔HTTPS)
+- [`docs/atendimento-enunciado.md`](docs/atendimento-enunciado.md) — mapeamento ponto-a-ponto do enunciado para o código
+- [`docs/passos-finais.md`](docs/passos-finais.md) — instalação da CA no Keychain do macOS
