@@ -1,0 +1,50 @@
+.star i{
+    color:var(--bg-yellow);
+}
+/* static/css/stars.css */
+.star-rating .fa-star {
+    color: #ffc107; /* Cor da estrela preenchida */
+}
+
+.star-rating .fa-star-o {
+    color: #e4e5e9; /* Cor da estrela vazia */
+}
+
+/* Estilo para o formulário de avaliação */
+.rate {
+    display: flex;
+    flex-direction: row-reverse; /* Faz as estrelas se acenderem da esquerda para a direita */
+    justify-content: center;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input-checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}

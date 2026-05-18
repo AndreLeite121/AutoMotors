@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% load static %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<div class="container mt-5 login-banner">
+    <h2>Logout</h2>
+    <p>Você saiu da sua conta com sucesso.</p>
+    <p><a href="{% url 'login' %}">Login novamente</a></p>
+</div>
+{% endblock %}

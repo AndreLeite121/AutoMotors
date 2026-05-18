@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="py-5" style="background-color: var(--bg-black);">
+    <div class="container" style="max-width: 800px;">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+                <li class="breadcrumb-item"><a href="{% url 'home:index' %}" style="color: var(--bg-muted);">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'garagem:index' %}" style="color: var(--bg-muted);">Garagem</a></li>
+                <li class="breadcrumb-item active" style="color: var(--bg-white);">Cadastrar veículo</li>
+            </ol>
+        </nav>
+
+        <div class="p-4 p-md-5 rounded" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+            <h2 class="fw-bold mb-1" style="color: var(--bg-white);">Cadastrar veículo</h2>
+            <p class="mb-4" style="color: var(--bg-muted);">Adicione um novo carro ao estoque AutoMotors.</p>
+
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row g-3">
+                    {% for field in form %}
+                        <div class="{% if field.name in 'descricao,foto' %}col-12{% else %}col-12 col-md-6{% endif %}">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <div class="form-text" style="color: var(--bg-muted);">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% if field.errors %}
+                                <div class="text-danger small mt-1">{{ field.errors|join:" " }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-orange px-4 rounded-1">
+                        <i class="fas fa-save me-2"></i>Salvar veículo
+                    </button>
+                    <a href="{% url 'garagem:index' %}" class="btn btn-ghost px-4 rounded-1">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

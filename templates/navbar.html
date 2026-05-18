@@ -1,0 +1,72 @@
+{% load static %}
+{% comment %} templates/navbar.html — AutoMotors {% endcomment %}
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: var(--bg-black); border-bottom: 1px solid var(--bg-border);">
+    <div class="container-fluid pt-2 pb-2 px-lg-4">
+        <a href="{{ HTTP_BASE }}{% url 'home:index' %}" class="navbar-brand fw-bold d-flex align-items-center gap-2">
+            <img src="{% static 'img/Icones/automotors.svg' %}" alt="" width="32" height="32">
+            <span style="letter-spacing: 0.5px;">Auto<span style="color: var(--bg-red);">Motors</span></span>
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavContent"
+            aria-controls="navbarNavContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse d-lg-flex justify-content-lg-end" id="navbarNavContent">
+            <ul class="navbar-nav align-items-lg-center">
+                <li class="nav-item me-lg-3">
+                    <a class="nav-link" href="{{ HTTP_BASE }}{% url 'garagem:index' %}">Garagem</a>
+                </li>
+                <li class="nav-item me-lg-3">
+                    <a class="nav-link" href="{{ HTTP_BASE }}{% url 'acessorios:office_list' %}">Acessórios</a>
+                </li>
+                <li class="nav-item me-lg-3">
+                    <a class="nav-link" href="{{ HTTP_BASE }}{% url 'home:central_de_ajuda' %}">Ajuda</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown me-lg-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i>{{ user.username|default:user.email }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownUser">
+                            <li><a class="dropdown-item" href="{{ HTTPS_BASE }}{% url 'home:perfil' %}"><i class="fas fa-user me-2"></i>Meu perfil <small class="ms-1" style="color: var(--bg-red);">🔒</small></a></li>
+                            <li><a class="dropdown-item" href="{{ HTTPS_BASE }}{% url 'home:meu_historico' %}"><i class="fas fa-history me-2"></i>Meu histórico <small class="ms-1" style="color: var(--bg-red);">🔒</small></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{% url 'logout' %}" method="post" class="m-0">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt me-2"></i>Sair</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="{{ HTTPS_BASE }}{% url 'cart:view_cart' %}" title="Meus interesses (HTTPS)">
+                            <i class="fas fa-heart fs-5"></i>
+                            {% if user.cart and user.cart.items.count > 0 %}
+                            <span class="badge rounded-pill position-absolute top-0 start-100 translate-middle" style="background-color: var(--bg-red);">{{ user.cart.items.count }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item d-none d-lg-block me-lg-2">
+                        <a href="{{ HTTPS_BASE }}{% url 'login' %}" class="btn btn-orange rounded-1 px-3">
+                            <i class="fas fa-lock me-1"></i>Entrar
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-lg-block">
+                        <a href="{{ HTTPS_BASE }}{% url 'home:signup' %}" class="btn btn-orange-outline rounded-1 px-3">Cadastrar</a>
+                    </li>
+
+                    <li class="nav-item d-block d-lg-none pt-2 pb-1">
+                        <a href="{{ HTTPS_BASE }}{% url 'login' %}" class="btn btn-orange w-100 rounded-1"><i class="fas fa-lock me-1"></i>Entrar</a>
+                    </li>
+                    <li class="nav-item d-block d-lg-none pt-1 pb-2">
+                        <a href="{{ HTTPS_BASE }}{% url 'home:signup' %}" class="btn btn-orange-outline w-100 rounded-1">Cadastrar</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Acessórios — AutoMotors{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-surface) 100%);">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+                <li class="breadcrumb-item"><a href="{% url 'home:index' %}" style="color: var(--bg-muted);">Home</a></li>
+                <li class="breadcrumb-item active" style="color: var(--bg-white);">Acessórios</li>
+            </ol>
+        </nav>
+        <h1 class="fw-bold" style="color: var(--bg-white);">Acessórios &amp; Serviços</h1>
+        <p style="color: var(--bg-muted);">Produtos automotivos e serviços de oficina para deixar seu carro impecável.</p>
+    </div>
+</section>
+
+<main class="py-5" style="background-color: var(--bg-black);">
+    <div class="container">
+        <div class="row g-4">
+            {% for item in acessorios %}
+            <div class="col-md-6 col-lg-4">
+                <article class="card h-100">
+                    {% if item.foto %}
+                        <img src="{{ item.foto.url }}" class="card-img-top" alt="{{ item.nome }}"
+                             style="height: 220px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top d-flex align-items-center justify-content-center"
+                             style="height: 220px; background-color: var(--bg-surface-2); color: var(--bg-muted);">
+                            <i class="fas fa-tools fa-3x"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h5 class="card-title fw-bold mb-2 mt-1">{{ item.nome }}</h5>
+                        <p class="card-text" style="color: var(--bg-muted); font-size: 0.9rem;">
+                            {{ item.descricao|truncatewords:18 }}
+                        </p>
+                        <div class="mt-auto d-flex justify-content-between align-items-end pt-3" style="border-top: 1px solid var(--bg-border);">
+                            <p class="fw-bold mb-0" style="color: var(--bg-white); font-size: 1.2rem;">
+                                R$ {{ item.preco|floatformat:2 }}
+                            </p>
+                            <a href="{{ HTTPS_BASE }}{% url 'cart:add_acessorio_to_cart' item.id %}" class="btn btn-orange rounded-1 px-3">
+                                <i class="far fa-heart me-1"></i>Interesse
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5" style="color: var(--bg-muted);">
+                <i class="fas fa-tools fa-3x mb-3"></i>
+                <p>Nenhum acessório disponível no momento.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

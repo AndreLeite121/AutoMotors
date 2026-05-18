@@ -1,0 +1,50 @@
+<!-- Footer — AutoMotors -->
+<footer class="w-100 mt-5" style="background-color: var(--bg-surface); border-top: 1px solid var(--bg-border);">
+    <div class="container pt-5 pb-4">
+        <div class="row">
+            <div class="col-12 col-md-4 mb-4 mb-md-0">
+                <h4 class="fs-4 fw-bold text-uppercase mb-3" style="color: var(--bg-white);">
+                    Auto<span style="color: var(--bg-red);">Motors</span>
+                </h4>
+                <p style="color: var(--bg-muted);">
+                    Seminovos com procedência, vistoria em 100 pontos e garantia de fábrica.
+                    Aqui você compra o seu próximo carro com a mesma confiança de um zero km.
+                </p>
+                <p class="mt-3">
+                    <a href="#" title="Facebook" class="me-3" style="color: var(--bg-muted);">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" title="Instagram" class="me-3" style="color: var(--bg-muted);">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" title="YouTube" class="me-3" style="color: var(--bg-muted);">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" title="WhatsApp" class="me-3" style="color: var(--bg-muted);">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </p>
+            </div>
+
+            <div class="col-12 col-md-4 mb-4 mb-md-0">
+                <h5 class="fw-bold mb-3" style="color: var(--bg-white);">Minha conta <small style="color: var(--bg-red);">🔒</small></h5>
+                <p class="mb-2"><a href="{{ HTTPS_BASE }}{% url 'home:meu_historico' %}" style="color: var(--bg-muted);">Meu histórico</a></p>
+                <p class="mb-2"><a href="{{ HTTPS_BASE }}{% url 'home:perfil' %}" style="color: var(--bg-muted);">Meu perfil</a></p>
+                <p class="mb-2"><a href="{{ HTTPS_BASE }}{% url 'cart:view_cart' %}" style="color: var(--bg-muted);">Meus interesses</a></p>
+            </div>
+
+            <div class="col-12 col-md-4 mb-4 mb-md-0">
+                <h5 class="fw-bold mb-3" style="color: var(--bg-white);">Informações</h5>
+                <p class="mb-2"><a href="{{ HTTP_BASE }}{% url 'home:termos_e_condicoes' %}" style="color: var(--bg-muted);">Termos e condições</a></p>
+                <p class="mb-2"><a href="{{ HTTP_BASE }}{% url 'home:politica_de_privacidade' %}" style="color: var(--bg-muted);">Política de segurança</a></p>
+                <p class="mb-2"><a href="{{ HTTP_BASE }}{% url 'home:central_de_ajuda' %}" style="color: var(--bg-muted);">Central de ajuda</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-100 d-flex justify-content-center align-items-center py-3" style="background-color: var(--bg-black); border-top: 1px solid var(--bg-border);">
+        <p class="mb-0" style="color: var(--bg-muted); font-size: 0.85rem;">
+            &copy; AutoMotors LTDA. Todos os direitos reservados &middot; CNPJ 00.000.000/0001-00
+        </p>
+    </div>
+</footer>

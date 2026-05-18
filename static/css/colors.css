@@ -1,0 +1,58 @@
+/* AutoMotors — color utility classes */
+
+.bg-coffe{
+    color: var(--bg-white);
+    background-color: var(--bg-surface);
+}
+
+.bg-color-orange{
+    color: var(--bg-white);
+    background-color: var(--bg-red);
+}
+
+.bg-color-roxo{
+    color: var(--bg-white);
+    background-color: var(--bg-red);
+}
+
+.bg-surface{
+    background-color: var(--bg-surface);
+    color: var(--bg-white);
+}
+
+.bg-surface-2{
+    background-color: var(--bg-surface-2);
+    color: var(--bg-white);
+}
+
+.text-accent{
+    color: var(--bg-red) !important;
+}
+
+.text-muted-light{
+    color: var(--bg-muted) !important;
+}
+
+.card{
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-border);
+    color: var(--bg-white);
+}
+
+.card .card-title,
+.card .card-body{
+    color: var(--bg-white);
+}
+
+.dropdown-menu-dark{
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-border);
+}
+.dropdown-menu-dark .dropdown-item{
+    color: var(--bg-white);
+}
+.dropdown-menu-dark .dropdown-item:hover,
+.dropdown-menu-dark .dropdown-item:focus{
+    background-color: var(--bg-surface-2);
+    color: var(--bg-red);
+}

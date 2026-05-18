@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="py-5" style="background-color: var(--bg-black);">
+    <div class="container">
+
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+                <li class="breadcrumb-item"><a href="{% url 'home:index' %}" style="color: var(--bg-muted);">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'garagem:index' %}" style="color: var(--bg-muted);">Garagem</a></li>
+                <li class="breadcrumb-item active" style="color: var(--bg-white);">{{ car.nome }}</li>
+            </ol>
+        </nav>
+
+        <div class="row g-4">
+            <!-- Coluna esquerda: galeria + descrição -->
+            <div class="col-lg-7">
+                {% with fotos=car.fotos.all %}
+                <div class="rounded position-relative overflow-hidden" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+                    {% if car.promocao == "S" %}
+                    <span class="position-absolute top-0 start-0 m-3 px-2 py-1 fw-bold"
+                          style="background-color: var(--bg-red); color: white; font-size: 0.8rem; letter-spacing: 1.5px; border-radius: 2px; z-index: 2;">
+                        OFERTA
+                    </span>
+                    {% endif %}
+
+                    <img id="foto-principal"
+                         src="{% if fotos %}{{ car.foto_principal.url }}{% else %}{{ car.foto.url }}{% endif %}"
+                         alt="{{ car.nome }}"
+                         class="w-100"
+                         style="max-height: 520px; object-fit: cover; cursor: zoom-in; transition: opacity 0.15s ease;">
+                </div>
+
+                {% if fotos|length > 1 %}
+                <div class="d-flex gap-2 mt-3 flex-wrap" id="thumb-strip">
+                    {% for f in fotos %}
+                    <button type="button"
+                            class="thumb-btn p-0 border-0 rounded overflow-hidden"
+                            data-src="{{ f.imagem.url }}"
+                            style="width: 110px; height: 75px; cursor: pointer; opacity: {% if forloop.first %}1{% else %}0.55{% endif %}; border: 2px solid {% if forloop.first %}var(--bg-red){% else %}transparent{% endif %} !important; transition: opacity 0.15s ease;">
+                        <img src="{{ f.imagem.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                    </button>
+                    {% endfor %}
+                </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const main = document.getElementById("foto-principal");
+                        document.querySelectorAll(".thumb-btn").forEach(btn => {
+                            btn.addEventListener("click", () => {
+                                main.style.opacity = "0";
+                                setTimeout(() => {
+                                    main.src = btn.dataset.src;
+                                    main.style.opacity = "1";
+                                }, 100);
+                                document.querySelectorAll(".thumb-btn").forEach(b => {
+                                    b.style.opacity = "0.55";
+                                    b.style.borderColor = "transparent";
+                                });
+                                btn.style.opacity = "1";
+                                btn.style.borderColor = "var(--bg-red)";
+                            });
+                        });
+                    });
+                </script>
+                {% endif %}
+                {% endwith %}
+
+                <div class="mt-4 p-4 rounded" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+                    <h4 class="fw-bold mb-3" style="color: var(--bg-white);">Descrição</h4>
+                    <p style="color: var(--bg-muted); white-space: pre-wrap;">{{ car.descricao|default:"Veículo seminovo revisado pela equipe técnica AutoMotors, com vistoria em 100 pontos e laudo cautelar transparente." }}</p>
+                </div>
+            </div>
+
+            <!-- Coluna direita: ficha técnica + preço -->
+            <div class="col-lg-5">
+                <div class="p-4 rounded sticky-top" style="top: 90px; background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+                    <p class="text-uppercase mb-1" style="color: var(--bg-red); font-size: 0.8rem; letter-spacing: 2px;">
+                        {{ car.get_tipo_display }}{% if car.marca %} · {{ car.marca }}{% endif %}
+                    </p>
+                    <h1 class="fw-bold mb-2" style="color: var(--bg-white);">{{ car.nome }}</h1>
+
+                    <p class="mb-3" style="color: var(--bg-muted);">
+                        <small>a partir de</small>
+                        <span class="d-block fw-bold" style="color: var(--bg-white); font-size: 2.2rem;">R$ {{ car.preco|default:"—" }}</span>
+                    </p>
+
+                    <hr style="border-color: var(--bg-border);">
+
+                    <h6 class="fw-bold mb-3" style="color: var(--bg-white);">Ficha técnica</h6>
+                    <ul class="list-unstyled mb-4" style="color: var(--bg-muted);">
+                        {% if car.marca %}<li class="d-flex justify-content-between py-2" style="border-bottom: 1px solid var(--bg-border);"><span>Marca</span><span style="color: var(--bg-white);">{{ car.marca }}</span></li>{% endif %}
+                        {% if car.modelo %}<li class="d-flex justify-content-between py-2" style="border-bottom: 1px solid var(--bg-border);"><span>Modelo</span><span style="color: var(--bg-white);">{{ car.modelo }}</span></li>{% endif %}
+                        {% if car.ano_modelo %}<li class="d-flex justify-content-between py-2" style="border-bottom: 1px solid var(--bg-border);"><span>Ano</span><span style="color: var(--bg-white);">{{ car.ano_fabricacao|default:"—" }}/{{ car.ano_modelo }}</span></li>{% endif %}
+                        {% if car.quilometragem is not None %}<li class="d-flex justify-content-between py-2" style="border-bottom: 1px solid var(--bg-border);"><span>Quilometragem</span><span style="color: var(--bg-white);">{{ car.quilometragem }} km</span></li>{% endif %}
+                        {% if car.combustivel %}<li class="d-flex justify-content-between py-2" style="border-bottom: 1px solid var(--bg-border);"><span>Combustível</span><span style="color: var(--bg-white);">{{ car.get_combustivel_display }}</span></li>{% endif %}
+                        {% if car.cambio %}<li class="d-flex justify-content-between py-2"><span>Câmbio</span><span style="color: var(--bg-white);">{{ car.get_cambio_display }}</span></li>{% endif %}
+                    </ul>
+
+                    <div class="d-grid gap-2">
+                        <a href="{{ HTTPS_BASE }}{% url 'cart:add_veiculo_to_cart' car.id %}" class="btn btn-orange btn-lg rounded-1">
+                            <i class="far fa-heart me-2"></i>Adicionar aos meus interesses
+                        </a>
+                        <a href="https://wa.me/553835313531?text=Olá!%20Tenho%20interesse%20no%20{{ car.nome|urlencode }}"
+                           target="_blank" class="btn btn-ghost rounded-1">
+                            <i class="fab fa-whatsapp me-2"></i>Falar agora com vendedor
+                        </a>
+                    </div>
+
+                    <p class="text-center mt-3 mb-0" style="color: var(--bg-muted); font-size: 0.85rem;">
+                        <i class="fas fa-lock me-1"></i> Seus dados em conexão HTTPS
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

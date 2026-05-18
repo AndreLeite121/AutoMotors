@@ -1,0 +1,13 @@
+.bg-coffe{
+    color:var(--bg-white);
+    background-color: var(--bg-coffe-lg);
+}
+
+.bg-color-orange{
+    color: var(--bg-white);
+    background-color: var(--bg-orange);
+}
+.bg-color-roxo{
+    color: var(--bg-white);
+    background-color: var(--bg-roxo);
+}

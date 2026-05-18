@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Entrar — AutoMotors{% endblock %}
+
+{% block content %}
+<section class="login-banner d-flex align-items-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card-login-container">
+                    <div class="text-center mb-4">
+                        <img src="{% static 'img/Icones/automotors.svg' %}" alt="" width="56" height="56" class="mb-2">
+                        <h2 class="fw-bold mb-1" style="color: var(--bg-white);">Bem-vindo de volta</h2>
+                        <p class="mb-0" style="color: var(--bg-muted); font-size: 0.9rem;">
+                            <i class="fas fa-lock me-1" style="color: var(--bg-red);"></i>
+                            Acesso protegido por HTTPS
+                        </p>
+                    </div>
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger py-2" role="alert" style="font-size: 0.9rem;">
+                            Usuário ou senha inválidos.
+                        </div>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                        <p style="color: var(--bg-muted);">Você já está logado como <strong style="color: var(--bg-white);">{{ user.username }}</strong>.</p>
+                        <form method="post" action="{% url 'logout' %}" class="m-0">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-orange-outline w-100 rounded-1">Sair</button>
+                        </form>
+                    {% else %}
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Usuário ou e-mail</label>
+                                <input type="text" name="username" id="id_username" class="form-control" autofocus required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_password" class="form-label">Senha</label>
+                                <input type="password" name="password" id="id_password" class="form-control" required>
+                            </div>
+                            <input type="hidden" name="next" value="{{ next }}">
+                            <button type="submit" class="btn btn-orange w-100 rounded-1 py-2 fw-bold">
+                                Entrar
+                            </button>
+                        </form>
+                        <div class="text-center mt-3" style="color: var(--bg-muted); font-size: 0.9rem;">
+                            <a href="{% url 'password_reset' %}">Esqueceu a senha?</a>
+                        </div>
+                        <hr style="border-color: var(--bg-border);">
+                        <p class="text-center mb-0" style="color: var(--bg-muted); font-size: 0.9rem;">
+                            Não tem conta? <a href="{% url 'home:signup' %}">Cadastre-se</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

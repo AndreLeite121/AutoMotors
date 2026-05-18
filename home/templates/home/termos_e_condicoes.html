@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Termos e Condições — AutoMotors{% endblock %}
+{% block content %}
+
+<section class="py-5" style="background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-surface) 100%);">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+                <li class="breadcrumb-item"><a href="{% url 'home:index' %}" style="color: var(--bg-muted);">Home</a></li>
+                <li class="breadcrumb-item active" style="color: var(--bg-white);">Termos e condições</li>
+            </ol>
+        </nav>
+        <h1 class="fw-bold mb-2" style="color: var(--bg-white);">Termos e Condições de Uso</h1>
+        <p style="color: var(--bg-muted);">Ao usar a plataforma AutoMotors você concorda com as cláusulas abaixo.</p>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: var(--bg-black);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="p-4 p-md-5 rounded" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border); color: var(--bg-white);">
+
+                    <h4 class="fw-bold mb-2" style="color: var(--bg-red);">1. Uso seguro do site</h4>
+                    <p style="color: var(--bg-muted);">
+                        É proibido acessar a área autenticada de forma a comprometer a segurança da plataforma.
+                        Recomendamos o uso de senhas fortes, autenticação em dois fatores e dispositivos confiáveis.
+                    </p>
+
+                    <h4 class="fw-bold mt-4 mb-2" style="color: var(--bg-red);">2. Responsabilidades do usuário</h4>
+                    <p style="color: var(--bg-muted);">
+                        Você é responsável pela guarda das suas credenciais. Em caso de suspeita de comprometimento,
+                        altere a senha imediatamente e comunique nossa equipe pelo e-mail
+                        <a href="mailto:seguranca@automotors.com" style="color: var(--bg-red);">seguranca@automotors.com</a>.
+                    </p>
+
+                    <h4 class="fw-bold mt-4 mb-2" style="color: var(--bg-red);">3. Reserva de veículos</h4>
+                    <p style="color: var(--bg-muted);">
+                        A reserva de um veículo no carrinho não garante a compra. A confirmação se dá após o checkout
+                        e a aprovação do pagamento. Eventuais erros de preço serão comunicados antes da efetivação da venda.
+                    </p>
+
+                    <h4 class="fw-bold mt-4 mb-2" style="color: var(--bg-red);">4. Propriedade intelectual</h4>
+                    <p style="color: var(--bg-muted);">
+                        Todo o conteúdo deste site, incluindo textos, imagens e marca, é propriedade da AutoMotors e
+                        protegido por leis de direitos autorais.
+                    </p>
+
+                    <h4 class="fw-bold mt-4 mb-2" style="color: var(--bg-red);">5. Penalidades</h4>
+                    <p style="color: var(--bg-muted);">
+                        A AutoMotors poderá suspender contas envolvidas em fraude, tentativas de acesso indevido ou
+                        violação dos termos, sem aviso prévio.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

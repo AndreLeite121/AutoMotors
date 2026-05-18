@@ -1,0 +1,51 @@
+/* AutoMotors — inputs for dark theme */
+
+.form-control,
+.form-select{
+    border: 1px solid var(--bg-border);
+    color: var(--bg-white);
+    background-color: var(--bg-surface);
+    font-weight: 400;
+    font-size: 16px;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.form-control::placeholder{
+    color: var(--bg-muted);
+    opacity: 0.7;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color: var(--bg-red);
+    background-color: var(--bg-surface);
+    color: var(--bg-white);
+    box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.15);
+}
+
+/* Override Bootstrap autofill yellow on dark theme */
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:hover,
+.form-control:-webkit-autofill:focus{
+    -webkit-text-fill-color: var(--bg-white);
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-surface) inset;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+.form-label{
+    color: var(--bg-white);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+}
+
+.form-check-input{
+    background-color: var(--bg-surface);
+    border-color: var(--bg-border);
+}
+.form-check-input:checked{
+    background-color: var(--bg-red);
+    border-color: var(--bg-red);
+}
+.form-check-label{
+    color: var(--bg-white);
+}

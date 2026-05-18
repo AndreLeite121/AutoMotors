@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Meu perfil — AutoMotors{% endblock %}
+{% block content %}
+
+<section class="py-5" style="background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-surface) 100%);">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+                <li class="breadcrumb-item"><a href="{% url 'home:index' %}" style="color: var(--bg-muted);">Home</a></li>
+                <li class="breadcrumb-item active" style="color: var(--bg-white);">Meu perfil</li>
+            </ol>
+        </nav>
+
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+            <div class="rounded-circle d-flex align-items-center justify-content-center"
+                 style="width: 80px; height: 80px; background-color: var(--bg-surface-2); border: 2px solid var(--bg-red); color: var(--bg-white); font-size: 2rem; font-weight: 700;">
+                {{ request.user.username|slice:":1"|upper }}
+            </div>
+            <div>
+                <h1 class="fw-bold mb-1" style="color: var(--bg-white);">
+                    {{ request.user.first_name|default:request.user.username }}
+                </h1>
+                <p class="mb-0" style="color: var(--bg-muted);">
+                    <i class="fas fa-lock me-1" style="color: var(--bg-red);"></i>
+                    Editando em conexão segura (HTTPS) — última atualização: {{ profile.atualizado_em|date:"d/m/Y H:i"|default:"—" }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: var(--bg-black);">
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} py-2" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+
+            <div class="row g-4">
+                <!-- Dados básicos -->
+                <div class="col-lg-6">
+                    <div class="p-4 p-md-4 rounded h-100" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+                        <h5 class="fw-bold mb-3" style="color: var(--bg-white);">
+                            <i class="fas fa-user me-2" style="color: var(--bg-red);"></i>Dados básicos
+                        </h5>
+                        <p class="mb-3" style="color: var(--bg-muted); font-size: 0.9rem;">
+                            Nome e e-mail são usados para login e contato comercial.
+                        </p>
+
+                        {% for field in basics_form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}<div class="text-danger small mt-1">{{ field.errors|join:" " }}</div>{% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Contato e endereço -->
+                <div class="col-lg-6">
+                    <div class="p-4 p-md-4 rounded h-100" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+                        <h5 class="fw-bold mb-3" style="color: var(--bg-white);">
+                            <i class="fas fa-phone me-2" style="color: var(--bg-red);"></i>Contato &amp; entrega
+                        </h5>
+                        <p class="mb-3" style="color: var(--bg-muted); font-size: 0.9rem;">
+                            Usados para retorno do vendedor e emissão de nota fiscal.
+                        </p>
+
+                        <div class="mb-3">
+                            <label for="{{ profile_form.telefone.id_for_label }}" class="form-label">Telefone</label>
+                            {{ profile_form.telefone }}
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-4">
+                                <label for="{{ profile_form.cep.id_for_label }}" class="form-label">CEP</label>
+                                {{ profile_form.cep }}
+                            </div>
+                            <div class="col-8">
+                                <label for="{{ profile_form.endereco.id_for_label }}" class="form-label">Endereço</label>
+                                {{ profile_form.endereco }}
+                            </div>
+                            <div class="col-4">
+                                <label for="{{ profile_form.numero.id_for_label }}" class="form-label">Número</label>
+                                {{ profile_form.numero }}
+                            </div>
+                            <div class="col-8">
+                                <label for="{{ profile_form.complemento.id_for_label }}" class="form-label">Complemento</label>
+                                {{ profile_form.complemento }}
+                            </div>
+                            <div class="col-9">
+                                <label for="{{ profile_form.cidade.id_for_label }}" class="form-label">Cidade</label>
+                                {{ profile_form.cidade }}
+                            </div>
+                            <div class="col-3">
+                                <label for="{{ profile_form.estado.id_for_label }}" class="form-label">UF</label>
+                                {{ profile_form.estado }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dados sensíveis -->
+            <div class="row g-4 mt-1">
+                <div class="col-12">
+                    <div class="p-4 rounded" style="background-color: var(--bg-surface); border: 1px solid var(--bg-red);">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-shield-alt fa-lg me-2" style="color: var(--bg-red);"></i>
+                            <h5 class="fw-bold mb-0" style="color: var(--bg-white);">Dados sensíveis (LGPD)</h5>
+                        </div>
+                        <p style="color: var(--bg-muted); font-size: 0.9rem;">
+                            O CPF só é solicitado para emissão de nota fiscal. Trafega exclusivamente em HTTPS e
+                            fica disponível apenas para você nesta página.
+                        </p>
+
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <label for="{{ profile_form.cpf.id_for_label }}" class="form-label">CPF</label>
+                                {{ profile_form.cpf }}
+                            </div>
+                            <div class="col-md-8 d-flex align-items-end">
+                                <div class="form-check">
+                                    {{ profile_form.aceita_marketing }}
+                                    <label class="form-check-label ms-1" for="{{ profile_form.aceita_marketing.id_for_label }}">
+                                        Quero receber ofertas exclusivas por e-mail.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-orange px-4 rounded-1 fw-bold">
+                    <i class="fas fa-save me-2"></i>Salvar alterações
+                </button>
+                <a href="{% url 'home:index' %}" class="btn btn-ghost px-4 rounded-1">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

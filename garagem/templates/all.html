@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Page header + filtros -->
+<section class="py-5" style="background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-surface) 100%);">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+                <li class="breadcrumb-item"><a href="{% url 'home:index' %}" style="color: var(--bg-muted);">Home</a></li>
+                <li class="breadcrumb-item active" style="color: var(--bg-white);">Garagem</li>
+            </ol>
+        </nav>
+
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
+                <p class="text-uppercase fw-bold mb-1" style="color: var(--bg-red); letter-spacing: 2px;">
+                    <i class="fas fa-warehouse me-2"></i>Nossa garagem
+                </p>
+                <h1 class="fw-bold mb-1" style="color: var(--bg-white);">
+                    {% if categoria_atual %}
+                        {{ lista|length }} {{ lista.0.get_tipo_display|default:categoria_atual }}{{ lista|length|pluralize:",s" }} disponível{{ lista|length|pluralize:",is" }}
+                    {% else %}
+                        {{ lista|length }} veículo{{ lista|length|pluralize }} esperando você
+                    {% endif %}
+                </h1>
+                <p class="mb-0" style="color: var(--bg-muted);">Cada carro com vistoria em 100 pontos e garantia AutoMotors.</p>
+            </div>
+
+            <div class="d-flex gap-2 align-items-center">
+                <select class="form-select" style="max-width: 200px;">
+                    <option>Mais recentes</option>
+                    <option>Menor preço</option>
+                    <option>Maior preço</option>
+                    <option>Menor KM</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Chips de categoria -->
+        <div class="d-flex flex-wrap gap-2 pb-2">
+            {% with cat=categoria_atual %}
+            <a href="{% url 'garagem:index' %}"
+               class="px-3 py-2 rounded-1 text-decoration-none"
+               style="background-color: {% if not cat %}var(--bg-red){% else %}var(--bg-surface-2){% endif %}; color: var(--bg-white); border: 1px solid var(--bg-border); font-size: 0.9rem;">
+                Todos
+            </a>
+            <a href="?cat=SUV" class="px-3 py-2 rounded-1 text-decoration-none"
+               style="background-color: {% if cat == 'SUV' %}var(--bg-red){% else %}var(--bg-surface-2){% endif %}; color: var(--bg-white); border: 1px solid var(--bg-border); font-size: 0.9rem;">
+                <i class="fas fa-truck-monster me-1"></i> SUV
+            </a>
+            <a href="?cat=SED" class="px-3 py-2 rounded-1 text-decoration-none"
+               style="background-color: {% if cat == 'SED' %}var(--bg-red){% else %}var(--bg-surface-2){% endif %}; color: var(--bg-white); border: 1px solid var(--bg-border); font-size: 0.9rem;">
+                <i class="fas fa-car-side me-1"></i> Sedan
+            </a>
+            <a href="?cat=HAT" class="px-3 py-2 rounded-1 text-decoration-none"
+               style="background-color: {% if cat == 'HAT' %}var(--bg-red){% else %}var(--bg-surface-2){% endif %}; color: var(--bg-white); border: 1px solid var(--bg-border); font-size: 0.9rem;">
+                <i class="fas fa-car me-1"></i> Hatch
+            </a>
+            <a href="?cat=PIC" class="px-3 py-2 rounded-1 text-decoration-none"
+               style="background-color: {% if cat == 'PIC' %}var(--bg-red){% else %}var(--bg-surface-2){% endif %}; color: var(--bg-white); border: 1px solid var(--bg-border); font-size: 0.9rem;">
+                <i class="fas fa-truck-pickup me-1"></i> Picape
+            </a>
+            <a href="?cat=ESP" class="px-3 py-2 rounded-1 text-decoration-none"
+               style="background-color: {% if cat == 'ESP' %}var(--bg-red){% else %}var(--bg-surface-2){% endif %}; color: var(--bg-white); border: 1px solid var(--bg-border); font-size: 0.9rem;">
+                <i class="fas fa-flag-checkered me-1"></i> Esportivo
+            </a>
+            <a href="?cat=UTI" class="px-3 py-2 rounded-1 text-decoration-none"
+               style="background-color: {% if cat == 'UTI' %}var(--bg-red){% else %}var(--bg-surface-2){% endif %}; color: var(--bg-white); border: 1px solid var(--bg-border); font-size: 0.9rem;">
+                <i class="fas fa-shuttle-van me-1"></i> Utilitário
+            </a>
+            {% endwith %}
+        </div>
+    </div>
+</section>
+
+
+<!-- Catalog -->
+<main class="py-5" style="background-color: var(--bg-black);">
+    <div class="container">
+
+        {% if not lista %}
+            <div class="text-center py-5 rounded" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border); color: var(--bg-muted);">
+                <i class="fas fa-car-side fa-3x mb-3"></i>
+                <p class="mb-0">Nenhum veículo nesta categoria no momento.</p>
+            </div>
+        {% endif %}
+
+        <div class="row g-4">
+            {% for e in lista %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <article class="card h-100 position-relative" style="overflow: hidden;">
+                    <div class="position-relative" style="background-color: var(--bg-surface-2);">
+                        {% if e.promocao == "S" %}
+                        <span class="position-absolute top-0 start-0 m-2 px-2 py-1 fw-bold"
+                              style="background-color: var(--bg-red); color: white; font-size: 0.75rem; letter-spacing: 1px; border-radius: 2px; z-index: 1;">
+                            OFERTA
+                        </span>
+                        {% endif %}
+                        <a href="{% url 'garagem:detalhes' e.id %}" class="d-block">
+                            <img src="{{ e.foto_principal.url }}" alt="{{ e.nome }}"
+                                 class="card-img-top"
+                                 style="height: 240px; object-fit: cover; background-color: var(--bg-surface-2);">
+                            {% with extras=e.fotos.count %}
+                            {% if extras > 1 %}
+                            <span class="position-absolute m-2"
+                                  style="bottom: 0; right: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 2px 8px; border-radius: 3px; font-size: 0.75rem;">
+                                <i class="fas fa-images me-1"></i>{{ extras }}
+                            </span>
+                            {% endif %}
+                            {% endwith %}
+                        </a>
+                    </div>
+
+                    <div class="card-body p-4 d-flex flex-column">
+                        <p class="text-uppercase mb-1" style="color: var(--bg-red); font-size: 0.75rem; letter-spacing: 1.5px;">
+                            {{ e.get_tipo_display }}{% if e.marca %} · {{ e.marca }}{% endif %}
+                        </p>
+                        <h5 class="card-title fw-bold mb-2">
+                            <a href="{% url 'garagem:detalhes' e.id %}" style="color: var(--bg-white); text-decoration: none;">{{ e.nome }}</a>
+                        </h5>
+
+                        <div class="d-flex flex-wrap gap-2 mb-3" style="font-size: 0.85rem; color: var(--bg-muted);">
+                            {% if e.ano_modelo %}
+                            <span><i class="far fa-calendar-alt me-1"></i>{{ e.ano_fabricacao|default:'—' }}/{{ e.ano_modelo }}</span>
+                            {% endif %}
+                            {% if e.quilometragem is not None %}
+                            <span><i class="fas fa-tachometer-alt me-1"></i>{{ e.quilometragem }} km</span>
+                            {% endif %}
+                            {% if e.combustivel %}
+                            <span><i class="fas fa-gas-pump me-1"></i>{{ e.get_combustivel_display }}</span>
+                            {% endif %}
+                            {% if e.cambio %}
+                            <span><i class="fas fa-cogs me-1"></i>{{ e.get_cambio_display }}</span>
+                            {% endif %}
+                        </div>
+
+                        <p class="card-text mb-3" style="color: var(--bg-muted); font-size: 0.9rem;">
+                            {{ e.descricao|default:'Veículo seminovo revisado e com garantia AutoMotors.'|truncatewords:18 }}
+                        </p>
+
+                        <div class="mt-auto d-flex justify-content-between align-items-end pt-3" style="border-top: 1px solid var(--bg-border);">
+                            <div>
+                                <small style="color: var(--bg-muted);">a partir de</small>
+                                <p class="fw-bold mb-0" style="color: var(--bg-white); font-size: 1.35rem;">
+                                    R$ {{ e.preco|default:'—' }}
+                                </p>
+                            </div>
+                            <a href="{{ HTTPS_BASE }}{% url 'cart:add_veiculo_to_cart' e.id %}"
+                               class="btn btn-orange rounded-1 px-3" title="Adicionar à lista de interesse (HTTPS)">
+                                <i class="far fa-heart me-1"></i> Interesse
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

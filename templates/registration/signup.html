@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cadastro — AutoMotors{% endblock %}
+
+{% block content %}
+<section class="login-banner d-flex align-items-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="card-login-container">
+                    <div class="text-center mb-4">
+                        <img src="{% static 'img/Icones/automotors.svg' %}" alt="" width="56" height="56" class="mb-2">
+                        <h2 class="fw-bold mb-1" style="color: var(--bg-white);">Crie sua conta</h2>
+                        <p class="mb-0" style="color: var(--bg-muted); font-size: 0.9rem;">
+                            <i class="fas fa-lock me-1" style="color: var(--bg-red);"></i>
+                            Seus dados em conexão HTTPS
+                        </p>
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <div class="form-text" style="color: var(--bg-muted); font-size: 0.8rem;">{{ field.help_text|safe }}</div>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <div class="text-danger small mt-1">{{ field.errors|join:" " }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-orange w-100 rounded-1 py-2 fw-bold mt-2">
+                            Criar conta
+                        </button>
+                    </form>
+
+                    <hr style="border-color: var(--bg-border);">
+                    <p class="text-center mb-0" style="color: var(--bg-muted); font-size: 0.9rem;">
+                        Já tem conta? <a href="{% url 'login' %}">Entre</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

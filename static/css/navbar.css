@@ -1,0 +1,31 @@
+/* AutoMotors — navbar refinements */
+
+.navbar-dark .nav-link {
+    color: var(--bg-white);
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+
+.navbar-dark .nav-link:hover,
+.navbar-dark .nav-link:focus {
+    color: var(--bg-red);
+}
+
+.navbar-dark .navbar-brand {
+    color: var(--bg-white);
+    font-size: 1.4rem;
+}
+
+/* Dropdown abre com hover em telas grandes */
+@media (min-width: 992px) {
+    .navbar .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
+}
+
+/* Link ativo (catálogo, etc) */
+.navbar-dark .nav-link.active {
+    color: var(--bg-red);
+    border-bottom: 2px solid var(--bg-red);
+}

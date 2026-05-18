@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Política de Segurança — AutoMotors{% endblock %}
+{% block content %}
+
+<section class="py-5" style="background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-surface) 100%);">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+                <li class="breadcrumb-item"><a href="{% url 'home:index' %}" style="color: var(--bg-muted);">Home</a></li>
+                <li class="breadcrumb-item active" style="color: var(--bg-white);">Política de segurança</li>
+            </ol>
+        </nav>
+        <p class="text-uppercase fw-bold mb-1" style="color: var(--bg-red); letter-spacing: 2px;">
+            <i class="fas fa-shield-alt me-2"></i>Compromisso com a confidencialidade
+        </p>
+        <h1 class="fw-bold mb-2" style="color: var(--bg-white);">Política de Segurança da Informação</h1>
+        <p style="color: var(--bg-muted);">Última atualização: maio de 2026</p>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: var(--bg-black);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="p-4 p-md-5 rounded mb-4" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border); color: var(--bg-white);">
+
+                    <h4 class="fw-bold mb-3" style="color: var(--bg-red);">1. Princípios</h4>
+                    <p style="color: var(--bg-muted);">
+                        A AutoMotors trata os dados de seus clientes sob os pilares de
+                        <strong style="color: var(--bg-white);">confidencialidade</strong>,
+                        <strong style="color: var(--bg-white);">integridade</strong> e
+                        <strong style="color: var(--bg-white);">disponibilidade</strong>.
+                        Toda manipulação de dados pessoais e financeiros segue a Lei Geral de Proteção de Dados
+                        (LGPD — Lei 13.709/2018) e normas equivalentes.
+                    </p>
+
+                    <h4 class="fw-bold mt-4 mb-3" style="color: var(--bg-red);">2. Dados coletados e finalidade</h4>
+                    <ul style="color: var(--bg-muted);">
+                        <li><strong style="color: var(--bg-white);">Cadastro:</strong> nome, e-mail, senha (armazenada apenas em hash com salt).</li>
+                        <li><strong style="color: var(--bg-white);">Perfil:</strong> CPF, telefone e endereço — usados exclusivamente para emissão de nota fiscal e contratos de venda.</li>
+                        <li><strong style="color: var(--bg-white);">Pagamento:</strong> dados do cartão de crédito trafegam em conexão HTTPS e nunca são exibidos novamente após o uso.</li>
+                        <li><strong style="color: var(--bg-white);">Navegação:</strong> registros mínimos de acesso para fins de auditoria e prevenção a fraude.</li>
+                    </ul>
+
+                    <h4 class="fw-bold mt-4 mb-3" style="color: var(--bg-red);">3. Como protegemos seus dados</h4>
+                    <p style="color: var(--bg-muted);">
+                        Aplicamos <strong style="color: var(--bg-white);">criptografia TLS/SSL</strong> em todas as páginas que coletam ou
+                        exibem dados sensíveis (login, cadastro, perfil, checkout e área administrativa). Geramos nossos
+                        próprios certificados digitais com OpenSSL, mantendo a Autoridade Certificadora interna
+                        (CA AutoMotors) e cadeia de confiança auditável.
+                    </p>
+                    <p style="color: var(--bg-muted);">
+                        Páginas públicas (catálogo, política, central de ajuda) seguem em HTTP por opção de desempenho,
+                        já que não tramitam dados pessoais — segregação intencional para minimizar superfície de ataque.
+                    </p>
+
+                    <h4 class="fw-bold mt-4 mb-3" style="color: var(--bg-red);">4. Acesso e controle</h4>
+                    <p style="color: var(--bg-muted);">
+                        Apenas funcionários autorizados acessam dados sensíveis, sob princípio do menor privilégio.
+                        Todos os acessos administrativos exigem autenticação via HTTPS e ficam registrados em log de auditoria.
+                    </p>
+
+                    <h4 class="fw-bold mt-4 mb-3" style="color: var(--bg-red);">5. Resposta a incidentes</h4>
+                    <p style="color: var(--bg-muted);">
+                        Qualquer incidente de segurança identificado é tratado pela equipe de TI no prazo máximo de 24h,
+                        com comunicação imediata à ANPD quando aplicável e ao titular dos dados afetados.
+                    </p>
+
+                    <h4 class="fw-bold mt-4 mb-3" style="color: var(--bg-red);">6. Direitos do titular</h4>
+                    <p style="color: var(--bg-muted);">
+                        Você pode solicitar a qualquer momento: acesso, correção, anonimização ou exclusão dos seus dados,
+                        bem como portabilidade e revogação de consentimento. Envie pedidos para
+                        <a href="mailto:dpo@automotors.com" style="color: var(--bg-red);">dpo@automotors.com</a>.
+                    </p>
+                </div>
+            </div>
+
+            <aside class="col-lg-4">
+                <div class="p-4 rounded sticky-top" style="top: 90px; background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+                    <h6 class="fw-bold mb-3" style="color: var(--bg-white);">Resumo executivo</h6>
+                    <div class="d-flex align-items-start mb-3" style="color: var(--bg-muted);">
+                        <i class="fas fa-lock me-2 mt-1" style="color: var(--bg-red);"></i>
+                        <small>HTTPS apenas em páginas com dado sensível (login, cadastro, perfil, checkout).</small>
+                    </div>
+                    <div class="d-flex align-items-start mb-3" style="color: var(--bg-muted);">
+                        <i class="fas fa-certificate me-2 mt-1" style="color: var(--bg-red);"></i>
+                        <small>Certificado digital próprio gerado com OpenSSL e assinado pela CA AutoMotors.</small>
+                    </div>
+                    <div class="d-flex align-items-start mb-3" style="color: var(--bg-muted);">
+                        <i class="fas fa-user-shield me-2 mt-1" style="color: var(--bg-red);"></i>
+                        <small>Conformidade com LGPD e princípio do menor privilégio em todos os acessos.</small>
+                    </div>
+                    <hr style="border-color: var(--bg-border);">
+                    <p class="mb-0" style="color: var(--bg-muted); font-size: 0.85rem;">
+                        Encarregado (DPO):<br>
+                        <strong style="color: var(--bg-white);">dpo@automotors.com</strong>
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

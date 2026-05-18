@@ -1,0 +1,78 @@
+/* AutoMotors — buttons */
+
+.btn-orange{
+    color: var(--bg-white);
+    background-color: var(--bg-red);
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1rem;
+    font-family: "Ruda","sans-serif";
+    font-weight: 600;
+    transition: background-color 0.15s ease, transform 0.05s ease;
+}
+.btn-orange:hover{
+    color: var(--bg-white);
+    background-color: var(--bg-red-hover);
+}
+.btn-orange:active{
+    transform: translateY(1px);
+}
+
+.btn-orange-outline{
+    color: var(--bg-white);
+    background-color: transparent;
+    outline: none;
+    border: 1px solid var(--bg-red);
+    box-shadow: none;
+    font-size: 1rem;
+    font-family: "Ruda","sans-serif";
+    font-weight: 500;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+.btn-orange-outline:hover{
+    color: var(--bg-white);
+    background-color: var(--bg-red);
+}
+
+.btn-ghost{
+    color: var(--bg-white);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-border);
+    transition: background-color 0.15s ease;
+}
+.btn-ghost:hover{
+    background-color: var(--bg-surface-2);
+    color: var(--bg-white);
+}
+
+.btn-tooltip-default{
+    width: auto;
+    height: auto;
+    color: var(--bg-red);
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0px;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+}
+.btn-tooltip-default:hover{
+    color: var(--bg-red-hover);
+    background-color: transparent;
+}
+
+.btn-login{
+    color: var(--bg-white);
+    background-color: var(--bg-red);
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1rem;
+    font-family: "Ruda","sans-serif";
+    font-weight: 600;
+}
+.btn-login:hover{
+    color: var(--bg-white);
+    background-color: var(--bg-red-hover);
+}

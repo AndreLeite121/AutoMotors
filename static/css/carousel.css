@@ -1,0 +1,36 @@
+/*
+  =============================================================
+  NOVO ESTILO PARA O CARROSSEL ADAPTÁVEL
+  =============================================================
+*/
+
+/* 1. Remove qualquer altura fixa do contêiner principal */
+.carousel {
+    max-width: 100%; /* Garante que não ultrapasse a tela */
+  }
+  
+  /* 2. Prepara o contêiner interno para uma transição suave de altura */
+  .carousel-inner {
+    /* A altura será definida dinamicamente via JavaScript */
+    /* A transição fará a mudança de altura ser suave e não um pulo brusco */
+    transition: height 0.5s ease-in-out;
+  }
+  
+  /* 3. Estilo da imagem para se adaptar corretamente */
+  .carousel-item-img {
+    display: block;
+    width: 100%;       /* Permite que a imagem encolha em telas pequenas */
+    
+    /* --- A MUDANÇA ESTÁ AQUI --- */
+    /* Define um limite para o tamanho da imagem em telas grandes. */
+    /* Ajuste este valor como preferir (ex: 700px, 800px, etc.) */
+    max-width: 700px;  
+    
+    height: auto;      /* ESSENCIAL: Mantém a proporção correta da imagem */
+    margin: 0 auto;    /* Centraliza a imagem quando ela for menor que a largura total */
+  }
+  
+  /* Garante que o item ativo seja visível para o JS medir sua altura */
+  .carousel-item.active {
+    display: block;
+  }

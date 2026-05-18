@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Central de Ajuda — AutoMotors{% endblock %}
+{% block content %}
+
+<section class="py-5" style="background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-surface) 100%);">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+                <li class="breadcrumb-item"><a href="{% url 'home:index' %}" style="color: var(--bg-muted);">Home</a></li>
+                <li class="breadcrumb-item active" style="color: var(--bg-white);">Central de ajuda</li>
+            </ol>
+        </nav>
+        <h1 class="fw-bold mb-2" style="color: var(--bg-white);">Central de Ajuda</h1>
+        <p style="color: var(--bg-muted);">Tudo o que você precisa saber para comprar com tranquilidade na AutoMotors.</p>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: var(--bg-black);">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="p-4 p-md-5 rounded" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border); color: var(--bg-white);">
+                    <h4 class="fw-bold mb-3" style="color: var(--bg-red);">Perguntas frequentes</h4>
+
+                    <div class="accordion accordion-flush" id="faq" style="background-color: transparent;">
+                        <div class="mb-3 p-3 rounded" style="background-color: var(--bg-surface-2); border: 1px solid var(--bg-border);">
+                            <h6 class="fw-bold mb-1" style="color: var(--bg-white);">Como funciona a vistoria dos seminovos?</h6>
+                            <p class="mb-0" style="color: var(--bg-muted);">Todo veículo passa por inspeção em 100 pontos: motor, suspensão, lataria, eletrônica e histórico de sinistros.</p>
+                        </div>
+                        <div class="mb-3 p-3 rounded" style="background-color: var(--bg-surface-2); border: 1px solid var(--bg-border);">
+                            <h6 class="fw-bold mb-1" style="color: var(--bg-white);">Posso financiar pelo site?</h6>
+                            <p class="mb-0" style="color: var(--bg-muted);">Sim. A simulação é feita no checkout, em conexão HTTPS, com bancos parceiros homologados.</p>
+                        </div>
+                        <div class="mb-3 p-3 rounded" style="background-color: var(--bg-surface-2); border: 1px solid var(--bg-border);">
+                            <h6 class="fw-bold mb-1" style="color: var(--bg-white);">Quais formas de pagamento são aceitas?</h6>
+                            <p class="mb-0" style="color: var(--bg-muted);">Cartão de crédito (até 12x), PIX, financiamento e transferência. Dados de cartão trafegam em HTTPS.</p>
+                        </div>
+                        <div class="mb-3 p-3 rounded" style="background-color: var(--bg-surface-2); border: 1px solid var(--bg-border);">
+                            <h6 class="fw-bold mb-1" style="color: var(--bg-white);">Como reporto um incidente de segurança?</h6>
+                            <p class="mb-0" style="color: var(--bg-muted);">Envie um e-mail para <a href="mailto:seguranca@automotors.com" style="color: var(--bg-red);">seguranca@automotors.com</a>. A equipe responde em até 24h.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="col-lg-4">
+                <div class="p-4 rounded" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+                    <h6 class="fw-bold mb-3" style="color: var(--bg-white);">Fale conosco</h6>
+                    <p class="mb-2" style="color: var(--bg-muted);">
+                        <i class="fas fa-envelope me-2" style="color: var(--bg-red);"></i>
+                        contato@automotors.com
+                    </p>
+                    <p class="mb-2" style="color: var(--bg-muted);">
+                        <i class="fas fa-phone me-2" style="color: var(--bg-red);"></i>
+                        (38) 3531-3531
+                    </p>
+                    <p class="mb-3" style="color: var(--bg-muted);">
+                        <i class="fas fa-map-marker-alt me-2" style="color: var(--bg-red);"></i>
+                        Av. das Concessionárias, 100<br>Diamantina, MG
+                    </p>
+                    <a href="https://wa.me/553835313531" class="btn btn-orange w-100 rounded-1">
+                        <i class="fab fa-whatsapp me-2"></i>Falar no WhatsApp
+                    </a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

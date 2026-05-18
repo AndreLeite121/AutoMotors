@@ -1,0 +1,77 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Ruda:wght@400..900&display=swap');
+@import "./navbar.css";
+@import "./buttons.css";
+@import "./background.css";
+@import "./input.css";
+@import "./position.css";
+@import "./colors.css";
+@import "./carousel.css";
+@import "./stars.css";
+@import "./utils.css";
+
+/*Color config */
+
+:root{
+   
+   /* --bg-orange:        #F46A05;
+    --bg-orange-hover:  #D85F08;
+    */
+    --bg-coffe:         #7f5539;
+    --bg-coffe-hd:      #ad8973;
+    --bg-coffe-md:      #b7927f;
+    --bg-coffe-lg:      #b1937d;
+    --bg-orange:        #7f5539;
+    --bg-orange-hover:  #b77e59;
+    --bg-black:         #000000;
+    --bg-cinza-1:       #757575;
+    --bg-cinza-2:       #F4F4F4;
+    --bg-white:         #FFFFFF;
+    --bg-yellow:        #FCB705;
+    --bg-roxo:        #E9008C;
+}
+html,
+body{
+    background-color: #ffe2d3;
+    font-family: "Ruda", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+}
+.card-img-top {
+    width: 100%;
+    height: 200px; /* Ajuste a altura conforme necessário */
+    object-fit: cover; /* Mantém a proporção e preenche o espaço */
+}
+/* static/css/style.css */
+a {
+    color: #ad8973; /* Cor padrão para todos os links */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #7f5539; /* Cor ao passar o mouse */
+    text-decoration: underline;
+}
+/* CSS específico para a página de login */
+.login-page-wrapper {
+    /* Faz o wrapper ocupar 100% do espaço que o <main> lhe deu */
+    width: 100%;
+    height: 100%;
+
+    /* Propriedades da imagem de fundo */
+    background-image: url('../img/banner/login.jpg'); /* <<< TROQUE AQUI */
+    background-size: cover; /* Cobre todo o espaço disponível */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat;
+
+    /* Usa flexbox para centralizar o formulário verticalmente e horizontalmente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rate label {
+    position: static !important;
+  }
+  

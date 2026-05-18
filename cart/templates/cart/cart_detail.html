@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Meus interesses — AutoMotors{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background-color: var(--bg-black); min-height: 80vh;">
+    <div class="container">
+
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+                <li class="breadcrumb-item"><a href="{% url 'home:index' %}" style="color: var(--bg-muted);">Home</a></li>
+                <li class="breadcrumb-item active" style="color: var(--bg-white);">Meus interesses</li>
+            </ol>
+        </nav>
+
+        <div class="d-flex align-items-center mb-4 flex-wrap gap-2">
+            <h1 class="fw-bold mb-0" style="color: var(--bg-white);">
+                <i class="far fa-heart me-2" style="color: var(--bg-red);"></i>Meus interesses
+            </h1>
+            <span class="ms-3 px-2 py-1 rounded" style="background-color: var(--bg-surface); color: var(--bg-muted); font-size: 0.85rem;">
+                <i class="fas fa-lock me-1" style="color: var(--bg-red);"></i> HTTPS
+            </span>
+        </div>
+
+        <p style="color: var(--bg-muted);">
+            Aqui ficam os carros que chamaram sua atenção. Você pode remover quando quiser —
+            os removidos continuam visíveis em <a href="{% url 'home:meu_historico' %}" style="color: var(--bg-red);">Meu histórico</a>.
+        </p>
+
+        {% if cart.items.all %}
+        <div class="row g-4 mt-2">
+            <!-- Lista de interesses -->
+            <div class="col-lg-8">
+                <div class="rounded" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+                    {% for item in cart.items.all %}
+                    <div class="d-flex flex-wrap align-items-center gap-3 p-3 {% if not forloop.last %}border-bottom{% endif %}" style="border-color: var(--bg-border) !important;">
+                        <div style="flex: 0 0 100px;">
+                            {% if item.veiculo_item %}
+                                <a href="{% url 'garagem:detalhes' item.veiculo_item.id %}">
+                                    <img src="{{ item.veiculo_item.foto_principal.url }}" alt="{{ item.veiculo_item.nome }}"
+                                         class="rounded" style="width: 100px; height: 70px; object-fit: cover;">
+                                </a>
+                            {% elif item.acessorio_item and item.acessorio_item.foto %}
+                                <img src="{{ item.acessorio_item.foto.url }}" alt="{{ item.acessorio_item.nome }}"
+                                     class="rounded" style="width: 100px; height: 70px; object-fit: cover;">
+                            {% endif %}
+                        </div>
+
+                        <div class="flex-grow-1" style="min-width: 200px;">
+                            <p class="mb-1 fw-bold" style="color: var(--bg-white);">
+                                {% if item.veiculo_item %}
+                                    <a href="{% url 'garagem:detalhes' item.veiculo_item.id %}" style="color: var(--bg-white); text-decoration: none;">{{ item.veiculo_item.nome }}</a>
+                                {% elif item.acessorio_item %}{{ item.acessorio_item.nome }}{% endif %}
+                            </p>
+                            <p class="mb-0" style="color: var(--bg-muted); font-size: 0.85rem;">
+                                {% if item.veiculo_item %}
+                                    {{ item.veiculo_item.get_tipo_display }}
+                                    {% if item.veiculo_item.ano_modelo %} · {{ item.veiculo_item.ano_modelo }}{% endif %}
+                                    {% if item.veiculo_item.quilometragem is not None %} · {{ item.veiculo_item.quilometragem }} km{% endif %}
+                                {% endif %}
+                            </p>
+                        </div>
+
+                        <div class="text-end" style="min-width: 140px;">
+                            <p class="mb-1 fw-bold" style="color: var(--bg-white); font-size: 1.1rem;">R$ {{ item.get_item_price|floatformat:2 }}</p>
+                            <a href="{% url 'cart:remove_from_cart' item.id %}" style="color: var(--bg-red); font-size: 0.85rem;">
+                                <i class="fas fa-trash-alt me-1"></i>Remover
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Painel WhatsApp / contato -->
+            <div class="col-lg-4">
+                <div class="p-4 rounded sticky-top" style="top: 90px; background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+                    <h5 class="fw-bold mb-2" style="color: var(--bg-white);">Próximo passo</h5>
+                    <p style="color: var(--bg-muted); font-size: 0.9rem;">
+                        Fale com um vendedor da AutoMotors no WhatsApp.
+                        A mensagem já vai com a lista dos carros que você marcou interesse.
+                    </p>
+
+                    <div class="d-flex justify-content-between mb-3" style="color: var(--bg-muted);">
+                        <span>{{ cart.items.count }} carro{{ cart.items.count|pluralize }}</span>
+                        <span>R$ {{ cart.get_total_price|floatformat:2 }} em interesse</span>
+                    </div>
+
+                    {% with wa_msg='Olá! Tenho interesse nos seguintes veículos da AutoMotors:%0A%0A' %}
+                    <a href="https://wa.me/553835313531?text={{ wa_msg }}{% for item in cart.items.all %}{% if item.veiculo_item %}• {{ item.veiculo_item.nome|urlencode }} (R$ {{ item.veiculo_item.preco }}){% if not forloop.last %}%0A{% endif %}{% endif %}{% endfor %}"
+                       target="_blank"
+                       class="btn btn-orange w-100 rounded-1 py-2 fw-bold mb-2"
+                       style="background-color: #25D366; border-color: #25D366;">
+                        <i class="fab fa-whatsapp me-2 fs-5"></i>Falar com vendedor
+                    </a>
+                    {% endwith %}
+
+                    <a href="{% url 'garagem:index' %}" class="btn btn-ghost w-100 rounded-1">
+                        Continuar olhando a garagem
+                    </a>
+
+                    <p class="text-center mt-3 mb-0" style="color: var(--bg-muted); font-size: 0.8rem;">
+                        Atendimento humano de 8h às 18h, segunda a sábado.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center py-5 rounded mt-4" style="background-color: var(--bg-surface); border: 1px solid var(--bg-border);">
+            <i class="far fa-heart fa-3x mb-3" style="color: var(--bg-muted);"></i>
+            <h4 class="fw-bold" style="color: var(--bg-white);">Você ainda não marcou interesse em nenhum carro</h4>
+            <p style="color: var(--bg-muted);">Quando algum chamar sua atenção, é só clicar em <strong style="color: var(--bg-red);">Interesse</strong>.</p>
+            <a href="{% url 'garagem:index' %}" class="btn btn-orange rounded-1 px-4">
+                Ver a garagem <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

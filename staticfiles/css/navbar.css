@@ -1,0 +1,18 @@
+/*  Background navbar*/
+.bg-coffe{
+    color: var(--bg-coffe-lg);
+    background-color: var(--bg-coffe-md);
+}
+.bg-orange{
+    color:var(--bg-orange);
+    background-color: var(--bg-orange);
+}
+/* static/css/navbar.css */
+
+/* Adicione este código para fazer o dropdown abrir com hover em telas grandes */
+@media (min-width: 992px) {
+    .navbar .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0; /* Remove a margem que pode criar um espaço e fechar o menu */
+    }
+}
