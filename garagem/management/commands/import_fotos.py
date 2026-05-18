@@ -1,7 +1,7 @@
 """Importa fotos dos carros a partir de um diretório com subpastas por carro.
 
-Estrutura esperada:
-    /caminho/Carros/
+Estrutura esperada (pasta `Carros/` versionada na raiz do projeto):
+    Carros/
         Honda Civic EXL 2.0/
             foto1.png
             foto2.png
@@ -10,14 +10,16 @@ Estrutura esperada:
             ...
 
 Uso:
-    python manage.py import_fotos "/Users/andreleite/Desktop/SASI 2026:01/Carros"
-    python manage.py import_fotos --source ... --clear  # apaga galeria antes
+    python manage.py import_fotos                 # usa Carros/ relativo à raiz
+    python manage.py import_fotos /outro/caminho  # caminho customizado
+    python manage.py import_fotos --clear         # apaga galeria antes
 """
 
 from __future__ import annotations
 
 from pathlib import Path
 
+from django.conf import settings
 from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 
@@ -47,8 +49,9 @@ class Command(BaseCommand):
         parser.add_argument(
             "source",
             nargs="?",
-            default="/Users/andreleite/Desktop/SASI 2026:01/Carros",
-            help="Caminho raiz com as subpastas de cada carro.",
+            default=str(Path(settings.BASE_DIR) / "Carros"),
+            help="Caminho raiz com as subpastas de cada carro "
+                 "(padrão: Carros/ na raiz do projeto).",
         )
         parser.add_argument(
             "--clear",

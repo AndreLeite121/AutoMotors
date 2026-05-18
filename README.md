@@ -91,11 +91,11 @@ python3 manage.py createsuperuser
 
 **6. (Opcional) Popule o banco com dados de exemplo:**
 ```bash
-# 9 veículos + 3 acessórios (baixa fotos do Unsplash)
+# 9 veículos + 3 acessórios (baixa fotos de capa do Unsplash)
 python3 manage.py seed_garagem
 
-# Galeria de fotos múltiplas a partir de uma pasta local (opcional)
-python3 manage.py import_fotos "/caminho/para/Carros"
+# Galeria de fotos múltiplas (usa a pasta Carros/ versionada no repo)
+python3 manage.py import_fotos
 ```
 
 **7. Certificados SSL:**
@@ -140,6 +140,7 @@ python manage.py runsslserver --certificate certs/server.crt --key certs/server.
 
 ## Documentação
 
+- [`docs/como-rodar.md`](docs/como-rodar.md) — **passo a passo completo de instalação para Linux e Windows** (do `git clone` ao servidor rodando)
 - [`docs/tutorial-openssl.md`](docs/tutorial-openssl.md) — geração e uso dos certificados com OpenSSL (entregue via Classroom)
 - [`docs/ssl-automotors.md`](docs/ssl-automotors.md) — arquitetura SSL do projeto (decorators, settings, fluxo HTTP↔HTTPS)
 - [`docs/atendimento-enunciado.md`](docs/atendimento-enunciado.md) — mapeamento ponto-a-ponto do enunciado para o código
